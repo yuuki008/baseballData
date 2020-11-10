@@ -1,0 +1,248 @@
+body {
+  margin: 0;
+  font-family: "Helvetica", BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  color: rgb(0,0,0,0.7);
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.app{
+  display: flex;
+  height: 100vh;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 10px;
+}
+
+.spacer__left{
+padding-left: 20px !important;
+}
+
+/*********** Module Spacer ***********/
+.module-spacer--extra-extra-small {
+  height: 12px
+}
+.module-spacer--extra-small {
+  height: 12px
+}
+.module-spacer--small {
+  height: 20px
+}
+.module-spacer--medium {
+  height: 32px
+}
+
+/*********** Section ***********/
+.c-main {
+  padding: 96px 0
+}
+.c-section-wrapin {
+  margin: 0 auto;
+  max-width: 575px;
+  position: relative;
+  padding: 0 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.c-section-container {
+  position: absolute;
+  margin: 50px auto;
+  max-width: 400px;
+  left: 0;
+  top: 5%;
+  right: 0;
+  height: auto;
+  width: calc(100% - 2rem);
+}
+
+.c-section__loading {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  opacity: 0.9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 9999;
+}
+
+.c-section__loading > p {
+  color: #444;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.p-grid__column {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+}
+
+.p-grid__row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.p-grid__list-images {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.p-grid__list-images > .p-media__thumb {
+  margin: .5rem;
+  width: calc(50% - 1rem);
+}
+
+.p-media__thumb {
+  position: relative;
+  overflow: hidden;
+  width: 100%
+}
+
+.p-media__thumb::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.p-media__thumb > img {
+  position: absolute;
+  object-fit: cover;
+  object-position: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+/*********** Footer ***********/
+.l-footer {
+  display: flex;
+  flex-flow: row wrap;
+  list-style: none;
+  margin: 0 1rem;
+}
+
+.l-footer > a {
+  color: #444;
+  font-size: .9rem;
+  margin-right: 1rem;
+}
+
+.u-text-small {
+  font-size: .9rem;
+}
+
+.u-text__link-none {
+  text-decoration: none;
+}
+
+.u-text-left {
+  text-align: left;
+}
+
+.u-text-right {
+  text-align: right;
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-text__headline {
+  margin-top: 30px;
+  color: #008000	;
+  font-size: 2rem;
+  margin: 0 auto 1rem auto;
+}
+
+.u-display-none {
+  display: none;
+}
+
+@media screen and (min-width: 576px) {
+  /*********** Module Spacer ***********/
+  .module-spacer--extra-extra-small {
+      height: 16px
+  }
+  .module-spacer--extra-small {
+      height: 20px
+  }
+  .module-spacer--small {
+      height: 32px
+  }
+
+  /*********** Section ***********/
+  .c-section-wrapin {
+      max-width: 1024px;
+  }
+}
+
+@media screen and (min-width:1024px) {
+  /*********** Module Spacer ***********/
+  .module-spacer--medium {
+      height: 48px
+  }
+}
+
+.authpage{
+  flex: 0.4;
+  border-right: 1px solid var(--twitter-background);
+  min-width: fit-content;
+  overflow-y: scroll;
+}
+
+h1, h2, h3, h4, h5, p, span{
+  margin: 0;
+}
+
+html {
+  --lightGrey: 227,227,227;
+  --tmdbDarkBlue: 102 205 170;
+  --tmdbLightBlue: 1,180,228;
+  --tmdbLighterGreen: 192,254,207;
+  --tmdbLightGreen: 30,213,169;
+  --tmdbLogoGreen: 144,206,161;
+  --tmdbLogoOrange: 253,193,112;
+  --tmdbLogoRed: 217,59,99;
+  --accountSilver: 149,149,149;
+  --accountPink: 234,20,140;
+  --accountPurple: 128,91,231;
+  --accountGreen: 1,210,119;
+  --accountTeal: 1,198,172;
+  --accountLightBlue: 1,180,228;
+  --accountBlue: 1,119,210;
+  --accountOrange: 210,119,1;
+  --accountYellow: 210,144,1;
+  --accountRed: 212,2,66;
+  --imageBorderRadius: 8px;
+}
+
+.MuiBadge-badge{
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+
+

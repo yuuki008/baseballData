@@ -1,0 +1,92 @@
+.player{
+    width: 60%;
+    margin: 0 auto;
+}
+
+.list__title{
+    font-weight: 550;
+    font-size: 16px;
+}
+.player__detail{
+    display: flex;
+    padding-top: 60px;
+}
+
+.player__info{
+    padding: 20px 60px;
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.player__info__list{
+    padding: 20px;
+}
+
+.player__name{
+    font-weight: 600;
+    font-size: 25px;
+    width: 100%;
+    border-bottom: 2px solid #e3e3e3;
+    display: flex;
+}
+
+.player__name > span{
+    font-weight: 600;
+    font-size: 20px;
+    color: gray;
+    padding-left: 30px;
+    margin: 0;
+    height: 43px;
+    line-height: 43px;
+}
+
+.player__pitch_hit{
+    padding: 10px 0;
+    position: relative;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.player__pitch_hit > span{
+    position:absolute;
+    left: 40%;
+    font-size: 15px;
+    font-weight: 600;
+    color: gray;
+    padding-left: 10px;
+}
+
+.player__selling {
+    margin-top: 25px;
+}
+
+.player__selling_description{
+    padding: 20px 10px;
+    max-height: 200px;
+    overflow-y: scroll;
+    white-space: pre-wrap;
+    font-weight: 600;
+    color: gray;
+}
+
+.player__grades{
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.player__grades_header{
+    font-size: 20px;
+    font-weight: 600;
+    width: 73%;
+    margin:20px auto;
+    border-bottom: 2px solid #e3e3e3;
+    padding: 10px;   
+}
+
+.player__grades_header > span{
+    color: gray;
+    padding-left: 10px;
+    font-size: 15px;
+}
+

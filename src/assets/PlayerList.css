@@ -1,0 +1,44 @@
+.playerlist{
+    margin: 30px 0;
+    width: 100%;
+    display: flex;
+}
+
+.playerlist{
+    display: flex;
+    flex-direction: column;
+}
+
+.playerlist__headerTitle{
+    width: 100%;
+    font-size: 30px; 
+    font-weight: 600;
+    padding: 40px 10px;
+    
+}
+
+.playerlist__title{
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+    font-weight: 600;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.playerlist__title > span{
+    padding: 0 20px;
+}
+
+.playerlist__title > span > span {
+    font-size: 15px;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.playerlist__all{
+    padding: 20px 70px;
+    display: flex;
+    flex-wrap: wrap;
+}
+

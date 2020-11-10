@@ -1,0 +1,60 @@
+.setgame{
+    padding: 30px;
+    display: flex;
+    position: relative;
+}
+
+.setgame__data{
+    text-align: center;
+    position: fixed;
+    width: 295px !important;
+}
+
+.setgame__data > input{
+    border-style: none;
+    margin: 20px 0;
+    padding: 15px;
+}
+
+.makeStyles-formControl-11{
+    width: 60% !important;
+}
+
+.setgame__gamedata{
+    width: 75%;
+    margin-left: auto;
+    padding: 50px;
+}
+
+.setgame__score{
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    font-size: 15px;
+    line-height: 50px;
+    font-weight: 600;
+}
+.setgame__score > .MuiFormControl-root{
+    width: 43%;
+    margin: 0 auto;
+}
+
+.setgame__comment{
+    width: 50%;
+    margin-top: 40px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.MuiInputBase-inputMarginDense{
+    padding: 5px !important;
+}
+
+element.style {
+    width: auto !important;
+}
+
+.MuiMenu-paper{
+    min-width: 200px !important;
+    max-height: 700px !important;
+}

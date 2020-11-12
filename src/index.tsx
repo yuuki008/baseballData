@@ -9,6 +9,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router';
 import { SetGame, SetPlayer, PlayerProfile, Home, PlayerGrade } from './pages';
 import { Header } from './components';
+import { Reset, SignIn, SignUp } from './pages/Auth';
 
 const history = History.createBrowserHistory()
 export const store= createStore(history)
@@ -18,6 +19,9 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Header/>
       <Switch>
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/reset" component={Reset} />
         <Route exact path="/" component={Home} />
         <Route exact path="/set" component={SetPlayer} />
         <Route exact path="/game" component={SetGame} />

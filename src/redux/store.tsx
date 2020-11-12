@@ -6,6 +6,7 @@ import {
 import {connectRouter, routerMiddleware} from 'connected-react-router'
 import {createLogger} from 'redux-logger';
 import thunk from 'redux-thunk'
+import { userReducer } from './user/reducers';
 
 export const initialState = {
     player:{
@@ -19,6 +20,11 @@ export const initialState = {
     games:{
         list: [],
     },
+    user:{
+        isSignedIn: false,
+        name: "",
+        role: "",
+    }
 }
 
 export const createStore = (history: any) => {
@@ -28,7 +34,8 @@ export const createStore = (history: any) => {
     })
     return reduxCreateStore(
         combineReducers({
-            router: connectRouter(history)
+            router: connectRouter(history),
+            user: userReducer,
         }),
         applyMiddleware(
             logger,

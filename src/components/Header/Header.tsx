@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {push} from 'connected-react-router'
 import GroupIcon from '@material-ui/icons/Group';
@@ -15,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import Notification from './Notification'
 import LightTooltip from '../UIkit/LightTooltip';
+import CommentDrawer from '../Modal/CommentDrawer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,6 +79,11 @@ const useStyles = makeStyles((theme) => ({
         },
       },
     },
+    stringButton:{
+      fontWeight: 600,
+      fontSize: "15px",
+      color: 'rgb(0,0,0,0.7)'
+    },
     icon:{
       width: '23px',
       height: '23px',
@@ -100,9 +106,16 @@ const Header = () => {
     const dispatch = useDispatch()
 
     const [teams, setTeams] = useState<any>([])
+    const [drawerOpen, setDrawerOpen] = useState(false)
     const [notices, setNotices] = useState<any>([])
     const [noticeAnchorEl, setNoticeAnchorEl] = React.useState<null | HTMLElement>(null);
 
+    const handleDrawerToggle = useCallback((event:any, isOpen:boolean) => {
+      if(event.key === 'keydown' && (event.key === "Tab" || event.key === "Shift")){
+        return;
+      }
+      setDrawerOpen(isOpen)
+    },[setDrawerOpen])
 
     const handleNoticeClick = (event:React.MouseEvent<HTMLButtonElement>) => {
       setNoticeAnchorEl(event.currentTarget)
@@ -140,6 +153,11 @@ const Header = () => {
                 >
                     SEINAN BASEBALL
                 </Typography>
+                <Button className={classes.stringButton}
+                onClick={() => dispatch(push('/grade'))}
+                >
+                  個人成績
+                </Button>
                 <LightTooltip title="試合を追加する">
                   <IconButton
                   onClick={() => dispatch(push('/game'))}
@@ -156,17 +174,17 @@ const Header = () => {
                   </Badge>
                 </IconButton>
                 <IconButton
+                aria-label="Menu Items"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={(e) => handleDrawerToggle(e, true)}
                 >
                     <MessageIcon className={classes.icon}/>
                 </IconButton>
-                <IconButton
-                onClick={() => dispatch(push('/set'))}
-                >
-                    <SearchIcon className={classes.icon}/>
-                </IconButton>
                 <Notification handleClose={handleNoticeClose} anchorEl={noticeAnchorEl} players={notices}/>
             </Toolbar>
-            </AppBar>        
+            </AppBar>    
+            <CommentDrawer open={drawerOpen} onClose={handleDrawerToggle}/>    
         </div>
     )
 }

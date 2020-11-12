@@ -10,6 +10,5 @@ export {default as Header} from './Header/Header'
 
 export {default as GameCell} from './PageComponent/GameCell'
 export {default as PlayerList} from './PageComponent/PlayerList'
-export {default as Grade} from './PageComponent/Grade'
 
 export {default as TeamsModal} from './Modal/TeamsModal'

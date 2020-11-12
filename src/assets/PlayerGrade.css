@@ -1,0 +1,97 @@
+.playerGrade{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    border: 4px solid #e3e3e3;
+    background-color: white;
+}
+
+.playerGrade__title{
+    font-weight: 600;
+    font-size: 20px; 
+    padding: 30px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    display: flex;
+}
+
+.players__grade{
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.playerGrade__teams{
+    padding: 10px; 
+    display: flex;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.grade__teamlist{
+    margin: 0 10px; 
+    height: 30px;
+}
+
+.grade__teamlist:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.grade__action{
+    border-bottom: 2px solid #e3e3e3;
+}
+
+.grade__card{
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    margin: 20px 15px;
+}
+
+.grade__card_title{
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    width: 100%;
+    border-bottom: 2px solid #e3e3e3;
+}
+
+.grade__player_wrapper{
+    display: flex;
+    color: rgb(0,0,0,0.7);
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.grade__player_wrapper:hover{
+    cursor: pointer;
+    background-color: rgb(0,0,0,0.05);
+}
+
+.grade__player{
+    height: 24px;
+    line-height: 24px;
+    display: flex;
+    padding: 8px;
+    width: 150px;
+    border-right: 1px solid #e3e3e3;
+    overflow: hidden;
+}
+
+
+.grade__player > span{
+    padding-left: 10px;
+    margin: 0;
+}
+
+.grade__player_grade{
+    padding: 10px;
+}

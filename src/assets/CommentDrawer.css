@@ -1,0 +1,17 @@
+.comment__drawer{
+    position: relative;
+}
+
+.message__post{
+    position: fixed; 
+    bottom: 0;
+    display: flex;
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.message__post > input{
+    width: 300px;
+    height: 30px;
+}

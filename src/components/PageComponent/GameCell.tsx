@@ -29,42 +29,44 @@ interface Props {
 const GameCell:React.FC<Props> = ({user, upload, setList}) => {
     const classes = useStyles()
     
-    const [total, setTotal] = useState(0)
-    const [hit, setHit] = useState(0)
-    const [twobase, setTwobase] = useState(0)
-    const [threebase, setThreebase] = useState(0)
-    const [homerun, setHomerun] = useState(0)
-    const [error, setError] = useState(0)
-    const [insideHit, setInsideHit] = useState(0)
-    const [stolenBase, setStolenBase] = useState(0)
-    const [stolenOutBase, setStolenOutBase] = useState(0)
-    const [sacrifice, setSacrifice] = useState(0)
-    const [strikeOut, setStrikeOut] = useState(0)
-    const [missedStrikeOut, setMissStrikeOut] = useState(0)
+    const [total, setTotal] = useState<number>(0)
+    const [hit, setHit] = useState<number>(0)
+    const [twobase, setTwobase] = useState<number>(0)
+    const [threebase, setThreebase] = useState<number>(0)
+    const [homerun, setHomerun] = useState<number>(0)
+    const [rbi, setRbi] = useState<number>(0)
+    const [error, setError] = useState<number>(0)
+    const [insideHit, setInsideHit] = useState<number>(0)
+    const [stolenBase, setStolenBase] = useState<number>(0)
+    const [stolenOutBase, setStolenOutBase] = useState<number>(0)
+    const [sacrifice, setSacrifice] = useState<number>(0)
+    const [strikeOut, setStrikeOut] = useState<number>(0)
+    const [missedStrikeOut, setMissStrikeOut] = useState<number>(0)
+    const [four, setfour] = useState<number>(0) 
 
 
     useEffect(() => {
-        if(upload){
+        if(upload === true){
             const data = {
                 id: user.id,
-                total: total,
-                hit: hit,
-                two: twobase,
-                three: threebase,
-                homerun: homerun,
-                error: error,
-                inside: insideHit,
-                stolen: stolenBase,
-                stolenOut: stolenOutBase,
-                sacrifice: sacrifice,
-                strikeOut: strikeOut,
-                missedStrikeOut: missedStrikeOut,
+                total: Number(total),
+                hit: Number(hit),
+                two: Number(twobase),
+                three: Number(threebase),
+                homerun: Number(homerun),
+                rbi: Number(rbi),
+                error: Number(error),
+                inside: Number(insideHit),
+                stolen: Number(stolenBase),
+                stolenOut: Number(stolenOutBase),
+                sacrifice: Number(sacrifice),
+                four: Number(four),
+                strikeOut: Number(strikeOut),
+                missedStrikeOut: Number(missedStrikeOut),
             }
             setList((prevState:any) => [...prevState, data])
         }
     },[upload])
-
-
 
     const inputHit = useCallback((event) => {
         setHit(event.target.value)
@@ -86,6 +88,10 @@ const GameCell:React.FC<Props> = ({user, upload, setList}) => {
         setHomerun(event.target.value)
     },[setHomerun])
 
+    const inputRbi = useCallback((event) => {
+        setRbi(event.target.value)
+    },[setRbi])
+
     const inputError = useCallback((event) => {
         setError(event.target.value)
     },[setError])
@@ -97,6 +103,11 @@ const GameCell:React.FC<Props> = ({user, upload, setList}) => {
     const inputSacrifice = useCallback((event) => {
         setSacrifice(event.target.value)
     },[setSacrifice])
+
+
+    const inputFour = useCallback((event) => {
+        setfour(event.target.value)
+    },[setfour])
 
     const inputStolenBase = useCallback((event) => {
         setStolenBase(event.target.value)
@@ -123,73 +134,85 @@ const GameCell:React.FC<Props> = ({user, upload, setList}) => {
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={total} type={"number"} onChange={inputTotal}
+            rows={1} value={total} type="number" onChange={inputTotal}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={hit} type={"number"} onChange={inputHit}
+            rows={1} value={hit} type="number" onChange={inputHit}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={insideHit} type={"number"} onChange={inputInsideHit}
+            rows={1} value={insideHit} type="number" onChange={inputInsideHit}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={twobase} type={"number"} onChange={inputTwobase}
+            rows={1} value={twobase} type="number" onChange={inputTwobase}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={threebase} type={"number"} onChange={inputThreebase}
+            rows={1} value={threebase} type="number" onChange={inputThreebase}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={homerun} type={"number"} onChange={inputHomerun}
+            rows={1} value={homerun} type="number" onChange={inputHomerun}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={error} type={"number"} onChange={inputError}
+            rows={1} value={rbi} type="number" onChange={inputRbi}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={stolenBase} type={"number"} onChange={inputStolenBase}
+            rows={1} value={error} type="number" onChange={inputError}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={stolenOutBase} type={"number"} onChange={inputStolenOutBase}
+            rows={1} value={stolenBase} type="number" onChange={inputStolenBase}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={sacrifice} type={"number"} onChange={inputSacrifice}
+            rows={1} value={stolenOutBase} type="number" onChange={inputStolenOutBase}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={strikeOut} type={"number"} onChange={inputStrikeOut}
+            rows={1} value={sacrifice} type="number" onChange={inputSacrifice}
             />
         </TableCell>
         <TableCell component="th" scope="user"className={classes.cell}>
             <TextInput
             fullWidth={false} label={""} multiline={false} required={true}
-            rows={1} value={missedStrikeOut} type={"number"} onChange={inputMissedStrikeOut}
+            rows={1} value={four} type="number" onChange={inputFour}
+            />
+        </TableCell>
+        <TableCell component="th" scope="user"className={classes.cell}>
+            <TextInput
+            fullWidth={false} label={""} multiline={false} required={true}
+            rows={1} value={strikeOut} type="number" onChange={inputStrikeOut}
+            />
+        </TableCell>
+        <TableCell component="th" scope="user"className={classes.cell}>
+            <TextInput
+            fullWidth={false} label={""} multiline={false} required={true}
+            rows={1} value={missedStrikeOut} type="number" onChange={inputMissedStrikeOut}
             />
         </TableCell>
       </TableRow>

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { db } from '../firebase/config'
 import '../assets/Home.css'
+import {useDispatch} from 'react-redux'
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import { SelectBox } from '../components'
@@ -28,6 +29,7 @@ const dataName = [
 
 const Home = () => {
     const classes = useStyles()
+    const dispatch = useDispatch()
 
     const [games, setGames] = useState<any>([])
     const [teams, setTeams] = useState([])
@@ -125,6 +127,7 @@ const Home = () => {
             setPlayers(list)
         })
     },[team])
+
 
 
     return (

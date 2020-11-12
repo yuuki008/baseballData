@@ -16,12 +16,6 @@ const useStyles = makeStyles({
     }
 })
 
-// const teams = [
-//     {id: 1, name: '選抜'},
-//     {id: 2, name: '強化'},
-//     {id: 3, name: '育成'},
-// ]
-
 const positions = [
     {id: "1", name: '投手'},
     {id: "2", name: '捕手'},

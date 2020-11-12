@@ -36,8 +36,8 @@ const useStyles = makeStyles({
 })
 
 const data = [
-    {name: "選手名"},{name: "打数"},{name: "安打"},{name: "内野安打"},{name: "2塁打"},{name: "3塁打"},
-    {name: "本塁打"},{name: "失策"},{name: "盗塁"},{name: '盗塁失敗'},{name: "四死球"},{name: "空振り三振"},{name: "見逃し三振"},
+    {name: "選手名"},{name: "打数"},{name: "安打"},{name: "内野安打"},{name: "2塁打"},{name: "3塁打"},{name: "本塁打"},
+    {name: '打点'},{name: "失策"},{name: "盗塁"},{name: '盗塁失敗'},{name: "犠打"},{name: "四死球"},{name: "空振り三振"},{name: "見逃し三振"},
 ]
 
 
@@ -64,7 +64,6 @@ const GameData = () => {
     const [upload, setUpload] = useState(false)
     const [list, setList] = useState<any>([])
     const [autoData, setAutodata] = useState<any>([])
-
     const inputOpponent = useCallback((event) => {
         setOpponent(event.target.value)
     },[setOpponent]) 
@@ -122,6 +121,8 @@ const GameData = () => {
         }
         }
     },[list])
+    
+    console.log(list)
     
     useEffect(() => {
         db.collection('player')
@@ -191,6 +192,8 @@ const GameData = () => {
         <Button
         className={classes.button}
         onClick={() => {
+            console.log('yey')
+            // setUpload(true)
             autogame(teams, setAutodata, users, gametype, setUsers, setSelect, team)
         }}
         >
@@ -329,13 +332,13 @@ const setdata = (selected:any, selectTeam:any, gametype:any) => {
                 const data = {
                     total: total,
                     hit: hit,
-                    average: (hit/total).toFixed(3),
+                    average: hit/total,
                     two: two,
                     three: three,
                     homerun: homerun,
-                    slupping: (((hit - (two+three+homerun)) + (two*2) + (three*3) + (homerun*4)/total)/100).toFixed(3).slice(1),
+                    slupping: ((hit - (two+three+homerun)) + (two*2) * (three*3) + (homerun*4))/(total + four + sacrifice),
                     stolen: stolen,
-                    onBase: ((hit+four)/(total+four+sacrifice)).toFixed(3).slice(1),
+                    onBase: (hit+four)/(total+four+sacrifice)
                 }
                 db.collection('player').doc(item.playerId).set({'grade': data},{merge:true})
             })

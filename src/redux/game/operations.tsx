@@ -1,5 +1,6 @@
 import {push} from 'connected-react-router'
 import {db} from '../../firebase/config'
+import reportWebVitals from '../../reportWebVitals'
 
 const gameRef = db.collection('game')
 const playerRef = db.collection('player')
@@ -21,9 +22,9 @@ export const upGame = (team:any, type:any, opponent:string, date:any, score:numb
         })
         list.map((item:any) => {
             playerRef.doc(item.id).collection('game').doc(gameId).set(item)
-            db.collection('player').doc(item.playerId).collection('game').get()
+            db.collection('player').doc(item.id).collection('game').get()
             .then((snapshot:any) => {
-                let total:any = 0; let hit:any = 0; let homerun:any = 0; let two:any = 0; let three:any = 0; let four:any = 0; let stolen:any = 0; let sacrifice:any = 0;
+                let total:number = 0; let hit:number = 0; let homerun:number = 0; let two:number = 0; let three:number = 0; let rbi:number = 0; let four:number = 0; let stolen:number = 0; let sacrifice:number = 0;
                 snapshot.docs.map((doc:any) => {
                     const data = doc.data()
                     total = total + data.total;
@@ -31,6 +32,7 @@ export const upGame = (team:any, type:any, opponent:string, date:any, score:numb
                     two = two + data.two;
                     three = three + data.three;
                     homerun = homerun + data.homerun;
+                    rbi = rbi + data.rbi;
                     four = four + data.four;
                     stolen = stolen + data.stolen;
                     sacrifice = sacrifice + data.sacrifice;
@@ -38,18 +40,26 @@ export const upGame = (team:any, type:any, opponent:string, date:any, score:numb
                 const data = {
                     total: total,
                     hit: hit,
-                    average: (hit/total).toFixed(3),
+                    average: hit/total,
                     two: two,
                     three: three,
                     homerun: homerun,
-                    slupping: (((hit - (two+three+homerun)) + (two*2) + (three*3) + (homerun*4)/total)/100).toFixed(3).slice(1),
+                    rbi: rbi,
+                    slupping: ((hit - (two+three+homerun)) + (two*2) * (three*3) + (homerun*4))/(total + four + sacrifice),
                     stolen: stolen,
-                    onBase: ((hit+four)/(total+four+sacrifice)).toFixed(3).slice(1),
-                    ops: (((hit - (two+three+homerun)) + (two*2) + (three*3) + (homerun*4)/total)/100) + ((hit+four)/(total+four+sacrifice)),
+                    onBase: (hit+four)/(total+four+sacrifice)
                 }
-                db.collection('player').doc(item.playerId).set({'grade': data},{merge:true})
+                db.collection('player').doc(item.id).set({'grade': data},{merge:true})
             })
         })
         dispatch(push('/'))
+    }
+}
+
+export const deleteGrade = (players:any) => {
+    return async (dispatch:any) => {
+        players.map((player:any) => {
+            db.collection('player').doc(player.id).set({grade: {}},{merge:true})
+        })
     }
 }

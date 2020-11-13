@@ -1,17 +1,90 @@
 .comment__drawer{
     position: relative;
+    display:flex;
+    flex-direction: column;
+}
+
+.drawer__room{
+    overflow: auto;
+    padding-top: 30px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.message{
+    border-radius: 10px;
+    clear: both; 
+    position: relative;
+    line-height: 18px;
+    font-size: 15px;
+    padding: 8px;
+    max-width: 60%;
+    white-space: pre-wrap;
+    margin-bottom: 45px;
+    font-weight: 600;
+    color: rgb(0,0,0,0.7);
+    font-size: 13px;
+}
+
+.message.sent > .message__user{
+    position: absolute;
+    top: -20px;
+    right: 5px;
+}
+
+.message.received > .message__user{
+    position: absolute;
+    top: -20px;
+}
+
+.message.received{
+    background: lightgray;
+    float: left;
+    margin-left: 20px;
+}
+
+.message.sent{
+    background: #e1ffc7;
+    float: right;
+    margin-right: 20px;
+}
+
+.message > p{
+    margin: 0;
+    padding: 10px;
+}
+
+.message.sent > span{
+    position: absolute;
+    bottom: -20px;
+    font-size: 10px;
+    font-weight: 400;
+    color: gray;
+}
+
+.message.received > span{
+    position: absolute;
+    bottom: -20px;
+    font-size: 10px;
+    font-weight: 400;
+    color: gray;
+    right: 5px;
 }
 
 .message__post{
-    position: fixed; 
+    border-top: 2px solid #e3e3e3;
+    position: sticky;
+    min-width: fit-content; 
+    height: 100px;
+    z-index:100;
+    background-color: white;
     bottom: 0;
     display: flex;
-    padding: 20px;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
 
-.message__post > input{
+.meesage__textfield{
     width: 300px;
-    height: 30px;
+    padding: 10px;
 }

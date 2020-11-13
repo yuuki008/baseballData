@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { push } from 'connected-react-router';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SelectBox, TextInput } from '../../components';
 import { signUp } from '../../redux/user/operations';
 import {Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import {db} from '../../firebase/config'
+import { getIsSignedIn } from '../../redux/selectors';
 
 const useStyles = makeStyles({
     button:{
@@ -18,6 +19,8 @@ const useStyles = makeStyles({
 const SignUp = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const selector = useSelector(state => state)
+    const isSignedIn = getIsSignedIn(selector)
     
     const [username, setUsername] = useState(''),
           [email, setEmail] = useState(''),
@@ -43,6 +46,9 @@ const SignUp = () => {
     },[setConfirmPassword])
 
     useEffect(() => {
+        if(isSignedIn){
+            dispatch(push('/'))
+        }
         db.collection('role').get()
         .then((snapshot:any) => {
             setTypes(snapshot.docs.map((doc:any) => doc.data()))

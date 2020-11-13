@@ -22,8 +22,9 @@ export const initialState = {
     },
     user:{
         isSignedIn: false,
-        name: "",
-        role: "",
+        username: "",
+        uid: "",
+        role: {},
     }
 }
 

@@ -19,8 +19,7 @@ export const signOutAction = () => {
             isSignedIn: false,
             username: "",
             uid: "",
-            genres: [],
-            favorite: [],
+            role: {},
         }
     }
 }

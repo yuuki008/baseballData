@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {push} from 'connected-react-router'
-import GroupIcon from '@material-ui/icons/Group';
 import { db } from '../../firebase/config';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,10 +11,13 @@ import {Badge, Button, IconButton} from '@material-ui/core'
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MessageIcon from '@material-ui/icons/Message';
 import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
 import Notification from './Notification'
 import LightTooltip from '../UIkit/LightTooltip';
 import CommentDrawer from '../Modal/CommentDrawer';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { getIsSignedIn } from '../../redux/selectors';
+import {signOut} from '../../redux/user/operations'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -104,11 +106,30 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const selector = useSelector(state => state)
+    const isSignedIn = getIsSignedIn(selector)
 
     const [teams, setTeams] = useState<any>([])
+    const [users, setUsers] = useState<any>([])
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [notices, setNotices] = useState<any>([])
-    const [noticeAnchorEl, setNoticeAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [accountAnchorEl, setAccountAnchorEl] = useState<null |HTMLElement>(null)
+    const [noticeAnchorEl, setNoticeAnchorEl] = useState<null | HTMLElement>(null);
+
+    const accountData = [
+      {name: "サインアウト"}
+    ]
+
+    const handleSignOut = () => {
+      const ref = window.confirm('サインアウトしますか？')
+      console.log(ref)
+      if(ref){
+        dispatch(signOut())
+        handleAccountClose()
+      }else{
+        handleAccountClose()
+      }
+    }
 
     const handleDrawerToggle = useCallback((event:any, isOpen:boolean) => {
       if(event.key === 'keydown' && (event.key === "Tab" || event.key === "Shift")){
@@ -117,12 +138,48 @@ const Header = () => {
       setDrawerOpen(isOpen)
     },[setDrawerOpen])
 
+    const handleAccountClick = (event:React.MouseEvent<HTMLButtonElement>) => {
+      setAccountAnchorEl(event.currentTarget)
+    }
+
+    const handleAccountClose = () => {
+      setAccountAnchorEl(null)
+    }
+
     const handleNoticeClick = (event:React.MouseEvent<HTMLButtonElement>) => {
       setNoticeAnchorEl(event.currentTarget)
     }
 
     const handleNoticeClose = () => {
       setNoticeAnchorEl(null)
+    }
+
+    const userAdmit = (user:any, handleClose:any) => {
+      const ref = window.confirm(`${user.username}を${user.role.name}で登録を許可しますか？`)
+      if(ref){
+          db.collection('user').doc(user.uid).set({'admit': true}, {merge:true})
+          .then(() => {
+            fetchAdmit()
+            handleClose()
+          })
+          
+      }else{
+          handleClose()
+      }
+    }
+
+    const fetchAdmit = () => {
+      db.collection('user').get()
+      .then((snapshot:any) => {
+        const list:any = []
+        snapshot.docs.map((doc:any) => {
+          const data = doc.data()
+          if(!data.admit){
+            list.push(data)
+          }
+        })
+        setUsers(list)
+      })
     }
     
     useEffect(() => {
@@ -134,9 +191,13 @@ const Header = () => {
       .onSnapshot((snapshot:any) => {
         setNotices(snapshot.docs.map((doc:any) => doc.data()))
       })
+      fetchAdmit()
     },[])
+
+
     
     return (
+      isSignedIn && (
         <div className={classes.root}>
             <AppBar position="fixed" className={classes.color}>
             <Toolbar>
@@ -158,6 +219,11 @@ const Header = () => {
                 >
                   個人成績
                 </Button>
+                <IconButton
+                onClick={(e) => handleAccountClick(e)}
+                >
+                  <AccountCircleIcon/>
+                </IconButton>
                 <LightTooltip title="試合を追加する">
                   <IconButton
                   onClick={() => dispatch(push('/game'))}
@@ -169,7 +235,7 @@ const Header = () => {
                   aria-controls="simple-menu" aria-haspopup="true"
                   onClick={handleNoticeClick}
                 >
-                  <Badge badgeContent={notices.length} className={classes.badge}>
+                  <Badge badgeContent={notices.length + users.length} className={classes.badge}>
                   <NotificationsIcon className={classes.icon}/>
                   </Badge>
                 </IconButton>
@@ -181,11 +247,13 @@ const Header = () => {
                 >
                     <MessageIcon className={classes.icon}/>
                 </IconButton>
-                <Notification handleClose={handleNoticeClose} anchorEl={noticeAnchorEl} players={notices}/>
+                <Notification handleClose={handleNoticeClose} anchorEl={noticeAnchorEl} players={notices} users={users} userAdmit={userAdmit}/>
+                <HeaderMenu handleClose={handleAccountClose} anchorEl={accountAnchorEl} teams={accountData} handleSignOut={handleSignOut}/>
             </Toolbar>
             </AppBar>    
             <CommentDrawer open={drawerOpen} onClose={handleDrawerToggle}/>    
         </div>
+      )
     )
 }
 

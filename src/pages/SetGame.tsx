@@ -194,7 +194,7 @@ const GameData = () => {
         onClick={() => {
             console.log('yey')
             // setUpload(true)
-            autogame(teams, setAutodata, users, gametype, setUsers, setSelect, team)
+            // autogame(teams, setAutodata, users, gametype, setUsers, setSelect, team)
         }}
         >
             公開する

@@ -1,8 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import { createStyles, Drawer, makeStyles, Theme } from '@material-ui/core'
+import { createStyles, Drawer, makeStyles } from '@material-ui/core'
 import { db, FirebaseTimestamp } from '../../firebase/config'
 import {Button} from '@material-ui/core'
 import '../../assets/CommentDrawer.css'
+import TextInput from '../UIkit/TextInput'
+import { getUid, getUsername } from '../../redux/selectors'
+import {useSelector} from 'react-redux'
 
 const useStyles = makeStyles((theme) => 
     createStyles({
@@ -17,10 +20,12 @@ const useStyles = makeStyles((theme) =>
             width: 400,
         },
         button:{
-            width: 50,
-            color: 'rgb(0,0,0,0.7)',
+            marginTop: "25px",
+            height: "50px",
             fontWeight: 600,
             textAlign: 'center',
+            backgroundColor: "#008000",
+            color: 'white',
         }
     })
 )
@@ -32,12 +37,23 @@ interface Props{
 
 const CommentModal:React.FC<Props> = ({open, onClose}) => {
     const classes = useStyles()
+    const selector = useSelector(state => state)
+    const uid = getUid(selector)
+    const username = getUsername(selector)
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState("")
 
     const inputMessage = useCallback((event) => {
         setMessage(event.target.value)
     },[setMessage])
+
+    const time = (timestamp:any) => {
+        const date = timestamp.toDate()
+        return (date.getMonth() + 1) + "/"
+        + ('00' + date.getDate()).slice(-2) + " "
+        + ('00' + date.getHours()).slice(-2) + ":"
+        + ('00' + date.getMinutes()).slice(-2)   
+    }
  
     const sendMessage = () => {
         if(message === ''){
@@ -49,7 +65,9 @@ const CommentModal:React.FC<Props> = ({open, onClose}) => {
         const setData = {
             message: message,
             timestamp: FirebaseTimestamp.now(),
-            id: messageId
+            id: messageId,
+            uid: uid,
+            username: username,
         }
         db.collection('room').doc('KEWm1y1nuP3UbUrHDucT').collection('message').doc(messageId).set(setData)
         .then(() => {
@@ -57,12 +75,20 @@ const CommentModal:React.FC<Props> = ({open, onClose}) => {
         })
     }
 
+    
     useEffect(() => {
-        db.collection('room').doc("KEWm1y1nuP3UbUrHDucT").collection('message').get()
-        .then((snapshot:any) => {
+        db.collection('room').doc("KEWm1y1nuP3UbUrHDucT").collection('message').orderBy('timestamp', 'asc')
+        .onSnapshot((snapshot:any) => {
             setMessages(snapshot.docs.map((doc:any) => doc.data()))
         })
     },[])
+    
+    const scrollArea = document.getElementById('scroll-area');
+    useEffect(() => {
+        if (scrollArea) {
+            scrollArea.scrollTop = scrollArea.scrollHeight;
+        }       
+    })
     
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
@@ -74,17 +100,32 @@ const CommentModal:React.FC<Props> = ({open, onClose}) => {
         classes={{paper: classes.drawerPaper,}}
         ModalProps={{keepMounted: true,}}
         >
-        <div className="comment__drawer">
-        <div className="drawer__room">
 
+        <div className="comment__drawer">
+        <div id={"scroll-area"} className="drawer__room">
+            {messages.length > 0 && (
+                messages.map((message:any) =>
+                <div key={message.id}>
+                    <div className={`message ${message.uid === uid ? 'sent' : 'received'}`}>
+                        <div className="message__user">
+                            {message.username}
+                        </div>
+                        <p>{message.message}</p>
+                        <span>{time(message.timestamp)}</span>
+                    </div>
+                </div>
+                )
+            )}
         </div>
+
+
         <div className="message__post">
-            <input 
-            type="text"
-            placeholder="メッセージを送信する"
-            value={message}
-            onChange={(event) => inputMessage(event)}
+            <div className="meesage__textfield">
+            <TextInput
+            fullWidth={true} label="メッセージを入力してください" multiline={true}
+            required={true} rows={3} type="text" value={message} onChange={inputMessage} 
             />
+            </div>
             <Button 
             className={classes.button}
             onClick={() => sendMessage()}

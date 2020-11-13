@@ -99,13 +99,13 @@ const PlayerList:React.FC<Props> = ({players}) => {
         <div className="playerlist">
         <div className="playerlist__headerTitle">選手一覧 {players.length}人</div>   
         <div className="playerlist__players">
-            {datalist.map((data:any) => 
+            {datalist.map((data:any, index:number) => 
             data.name === "人数" || data.name === '4年生' ? (<></>):(
             <div>
-                <div className="playerlist__title"><span>{data.name}<span>{data.list.length}人</span></span></div>
+                <div className="playerlist__title" key={index} ><span>{data.name}<span>{data.list.length}人</span></span></div>
                 <div className="playerlist__all">
-                {data.list.map((player:any, index:number) => 
-                    <PlayerCard key={index} player={player} />
+                {data.list.map((player:any) => 
+                    <PlayerCard key={player.id} player={player} />
                 )}
                 </div>         
             </div>

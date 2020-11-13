@@ -54,7 +54,7 @@ const PlayerCard:React.FC<Props> = ({player}) => {
         >
             <CardMedia
             className={classes.media}
-            image={player.image}
+            image={player.image === "" ? ("") : (player.image)}
             title={player.name}
             />
             <CardContent className={classes.content}>

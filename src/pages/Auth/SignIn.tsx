@@ -5,6 +5,7 @@ import { signIn } from '../../redux/user/operations';
 import {push} from 'connected-react-router';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles'
+import { getIsSignedIn } from '../../redux/selectors';
 
 const useStyles = makeStyles({
     button:{
@@ -18,6 +19,7 @@ const SignIn = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const selector = useSelector(state => state)
+    const isSignedIn = getIsSignedIn(selector)
     
     const [email, setEmail] = useState(''),
           [password, setPassword] = useState('');
@@ -29,8 +31,13 @@ const SignIn = () => {
     const inputPassword = useCallback((event) => {
         setPassword(event.target.value)
     },[setPassword])
-    
 
+    useEffect(() => {
+        if(isSignedIn){
+            dispatch(push('/'))
+        }
+    },[])
+    
     return (
         <div className="c-section-container">
             <h2 className="u-text-center u-text__headline">サインイン</h2>

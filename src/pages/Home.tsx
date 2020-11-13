@@ -151,13 +151,13 @@ const Home = () => {
                     <TableHead>
                         <TableRow>
                             {dataName.map((item:any, index:number) => 
-                            <TableCell className={classes.cell} key={index}>{item}</TableCell>
+                            <TableCell className={classes.cell} key={index}><div>{item}</div></TableCell>
                             )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {gameData.map((data:any, index:number) => 
-                        <TableCell className={classes.item} key={index}>{data}</TableCell>
+                        <TableCell className={classes.item} key={index}><div>{data}</div></TableCell>
                         )}
                     </TableBody>
                 </Table>

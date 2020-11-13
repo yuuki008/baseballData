@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { push } from 'connected-react-router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {TextInput} from '../../components'
 import { resetPassword } from '../../redux/user/operations'
 import {Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { getIsSignedIn } from '../../redux/selectors'
 
 const useStyles = makeStyles({
     button:{
@@ -17,12 +18,20 @@ const useStyles = makeStyles({
 const Reset = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const selector = useSelector(state => state)
+    const isSignedIn = getIsSignedIn(selector)
     
     const [email, setEmail] = useState('');
 
     const inputEmail = useCallback((event) => {
         setEmail(event.target.value)
     },[setEmail])
+
+    useEffect(() => {
+        if(isSignedIn){
+            dispatch(push('/'))
+        }
+    },[])
 
 
     return (

@@ -6,6 +6,7 @@ const usersRef = db.collection('user')
 
 export const signUp = (username:string, email:string, password:string, confirmPassword:string, type: any) => {
     return async (dispatch:any) => {
+        console.log("yeyeyhv")
         if(username === "" || email === "" || password === ""){
             alert('必須項目が未入力です')
             return false
@@ -30,6 +31,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
                     username: username,
                     created_at: timestamp,
                     role: type,
+                    admit: false,
                 }
                 usersRef.doc(uid).set(userData)
                 .then(() => {
@@ -55,6 +57,11 @@ export const signIn = (email: string, password: string) => {
                 db.collection('user').doc(uid).get()
                 .then((snapshot:any) => {
                     const data:any = snapshot.data()
+                    if(data.admit === false){
+                        alert("ユーザー登録がまだ認められていません。")
+                        dispatch(signOut())
+                        return false
+                    }
                     dispatch(signInAction({
                         isSignedIn: true,
                         username: data.username,
@@ -79,6 +86,10 @@ export const listenAuthState = () => {
                     if(!data){
                         throw new Error('ユーザーデータが存在しません')
                     }
+                    if(data.admit === false){
+                        dispatch(push('/signin'))
+                        return false
+                    }
                     dispatch(signInAction({
                         isSignedIn: true,
                         username: data.username,
@@ -86,6 +97,8 @@ export const listenAuthState = () => {
                         role: data.role,
                     }))
                 })     
+            }else{
+                dispatch(push('/signin'))
             }
         })
     }
@@ -96,6 +109,7 @@ export const signOut = () => {
         auth.signOut()
         .then(() => {
             dispatch(signOutAction())
+            dispatch(push('/signin'));
         })
         .catch((error:any) => {
             console.log(error)

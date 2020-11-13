@@ -26,6 +26,12 @@ const useStyles = makeStyles((theme) =>
             textAlign: 'center',
             backgroundColor: "#008000",
             color: 'white',
+        },
+        chat:{
+            overflow:'auto',
+            paddingTop: "30px",
+            margin: '0 auto',
+            width: "100%",
         }
     })
 )
@@ -83,13 +89,13 @@ const CommentModal:React.FC<Props> = ({open, onClose}) => {
         })
     },[])
     
-    const scrollArea = document.getElementById('scroll-area');
     useEffect(() => {
+        const scrollArea = document.getElementById('scroll-area');
         if (scrollArea) {
-            scrollArea.scrollTop = scrollArea.scrollHeight;
+            scrollArea.scroll({top: scrollArea.scrollHeight, behavior: "smooth"})
         }       
-    })
-    
+    },[messages])
+
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
         <Drawer
@@ -100,8 +106,6 @@ const CommentModal:React.FC<Props> = ({open, onClose}) => {
         classes={{paper: classes.drawerPaper,}}
         ModalProps={{keepMounted: true,}}
         >
-
-        <div className="comment__drawer">
         <div id={"scroll-area"} className="drawer__room">
             {messages.length > 0 && (
                 messages.map((message:any) =>
@@ -117,8 +121,7 @@ const CommentModal:React.FC<Props> = ({open, onClose}) => {
                 )
             )}
         </div>
-
-
+        <div className="comment__drawer">
         <div className="message__post">
             <div className="meesage__textfield">
             <TextInput

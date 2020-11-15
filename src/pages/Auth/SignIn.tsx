@@ -6,6 +6,7 @@ import {push} from 'connected-react-router';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles'
 import { getIsSignedIn } from '../../redux/selectors';
+import {db} from '../../firebase/config'
 
 const useStyles = makeStyles({
     button:{
@@ -32,12 +33,15 @@ const SignIn = () => {
         setPassword(event.target.value)
     },[setPassword])
 
+
     useEffect(() => {
         if(isSignedIn){
             dispatch(push('/'))
         }
     },[])
-    
+
+
+
     return (
         <div className="c-section-container">
             <h2 className="u-text-center u-text__headline">サインイン</h2>
@@ -67,3 +71,7 @@ const SignIn = () => {
 }
 
 export default SignIn
+
+
+
+

@@ -1,4 +1,5 @@
 export {default as PlayerCard} from './Card/PlayerCard'
+export {default as CheckPlayer} from './Card/CheckPlayer'
 
 export {default as TextInput} from './UIkit/TextInput'
 export {default as SelectBox} from './UIkit/SelectBox'

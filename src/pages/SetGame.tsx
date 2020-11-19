@@ -172,7 +172,7 @@ const GameData = () => {
     <div className="setgame">
     <div className="setgame__data">
         <input type='date' value={date}
-        onChange={(event => inputDate(event))}
+        onChange={(event) => inputDate(event)}
         />
         <SelectBox label="試合タイプ"　options={gametype} required={true} select={setType} value={type}/>
         <div className="module-spacer--small"/>

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import { createStyles, Drawer, makeStyles } from '@material-ui/core'
 import { db, FirebaseTimestamp } from '../../firebase/config'
-import {Button} from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import '../../assets/CommentDrawer.css'
 import TextInput from '../UIkit/TextInput'
 import { getUid, getUsername } from '../../redux/selectors'

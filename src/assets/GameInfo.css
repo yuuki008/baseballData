@@ -1,0 +1,46 @@
+.gameInfo__game{
+    margin: 150px auto 0 auto;
+    max-width: 350px;
+}
+
+.gameInfo__gameTitle{
+    margin-top: 30px;
+    color: #008000;
+    font-size: 2rem;
+    margin: 0 auto 1rem auto;
+    text-align: center;
+}
+
+.gameInfo__game > input{
+    border-style: none;
+    margin: 20px auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    height: 45px;
+    padding: 0;
+}
+
+.gameInfo__players{
+    width: 80%;
+    margin: 20px auto;
+}
+
+.gameInfo__playersTitle{
+    font-weight: 600;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.gameInfo__playerslist{
+    display: flex;
+    justify-content: space-around;
+}
+
+.gameInfo__yearsTitle{
+    font-weight: 600;
+    font-size: 20px;
+    color: rgb(0,0,0,0.7);
+    padding: 10px;
+}
+

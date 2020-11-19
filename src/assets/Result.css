@@ -1,0 +1,82 @@
+.result{
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.result__players{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.result__players__title{
+    font-weight: 600;
+    font-size: 20px;
+    color: rgb(0,0,0,0.7)
+}
+
+.result__players__avatars{
+    display: flex;
+    overflow-x: scroll;
+}
+.result__player{
+    cursor: pointer;
+}
+.result__player:hover > .MuiAvatar-root{
+    transform: scale(1.2)
+}
+
+.result__player:hover > .result__border{
+    margin: 0 auto;
+    padding-top: 15px;
+    width: 50px;
+    border-bottom: 3px solid #e3e3e3;
+}
+.active__player{
+    margin: 0 auto;
+    padding-top: 15px;
+    width: 50px;
+    border-bottom: 3px solid rgb(0,0,0,0.7);
+}
+.result__player:hover > .active__player{
+    display: none;
+}
+
+.result__player:hover > .result__player__description{
+    display: none;
+}
+
+.result__player__description{
+    display: flex;
+    justify-content: center;
+    font-weight: 550;
+    font-size: 15px;
+    color: rgb(0,0,0,0.7);
+}
+
+.result__player__description > span {
+    font-size: 13px;
+    padding-left: 10px;
+}
+
+.result__bat{
+    display: flex;
+    width: 80%;
+    position: relative;
+}
+
+.result__resulted{
+    width: 30%;
+}
+
+.result__batting{
+    width: 70%;
+}
+
+.result__dataset{
+    width: 300px;
+    margin: 0 auto;
+}

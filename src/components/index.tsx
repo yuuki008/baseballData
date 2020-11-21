@@ -13,3 +13,4 @@ export {default as GameCell} from './PageComponent/GameCell'
 export {default as PlayerList} from './PageComponent/PlayerList'
 
 export {default as TeamsModal} from './Modal/TeamsModal'
+export {default as PlayersModal} from './Modal/PlayersModal'

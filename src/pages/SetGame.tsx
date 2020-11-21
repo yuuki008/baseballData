@@ -100,7 +100,6 @@ const GameData = () => {
             setCheck(false)
         }
     }
-
     const uploadGame = () => {
             if(comment === ""){
                 alert('管理者コメントがありません')

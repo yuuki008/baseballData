@@ -254,4 +254,9 @@ html {
   padding: 0 !important;
 }
 
+.title{
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(0,0,0,0.7);
+}
 

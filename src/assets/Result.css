@@ -21,6 +21,7 @@
 .result__players__avatars{
     display: flex;
     overflow-x: scroll;
+    height: 200px;
 }
 .result__player{
     cursor: pointer;
@@ -36,9 +37,9 @@
     border-bottom: 3px solid #e3e3e3;
 }
 .active__player{
+    padding: 10px;
     margin: 0 auto;
-    padding-top: 15px;
-    width: 50px;
+    width: 30px;
     border-bottom: 3px solid rgb(0,0,0,0.7);
 }
 .result__player:hover > .active__player{
@@ -72,8 +73,44 @@
     width: 30%;
 }
 
+.result__bat_foul{
+    display: flex;
+}
+
+.result__resulted__data__title{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px auto 10px 0;
+}
+
+.result__resulted__datalist{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.result__resulted__datalist >span {
+    padding-left: 10px;
+}
+
+.resulted__detailist{
+    padding: 10px 0;
+}
+
+.resulted__detail{
+    float: right;
+}
+
 .result__batting{
     width: 70%;
+}
+
+.result__batting__info{
+    display: flex;
+}
+
+.result__batting__info > span{
+    padding-left: 10px;
 }
 
 .result__dataset{

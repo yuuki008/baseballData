@@ -1,0 +1,44 @@
+[debug] [2020-11-22T08:55:59.838Z] ----------------------------------------------------------------------
+[debug] [2020-11-22T08:55:59.840Z] Command:       /Users/yu-home/.nodebrew/node/v14.4.0/bin/node /Users/yu-home/.nodebrew/current/bin/firebase deploy
+[debug] [2020-11-22T08:55:59.840Z] CLI Version:   8.7.0
+[debug] [2020-11-22T08:55:59.840Z] Platform:      darwin
+[debug] [2020-11-22T08:55:59.840Z] Node Version:  v14.4.0
+[debug] [2020-11-22T08:55:59.847Z] Time:          Sun Nov 22 2020 17:55:59 GMT+0900 (日本標準時)
+[debug] [2020-11-22T08:55:59.847Z] ----------------------------------------------------------------------
+[debug] [2020-11-22T08:55:59.847Z] 
+[debug] [2020-11-22T08:55:59.864Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-22T08:55:59.865Z] > authorizing via signed-in user
+[debug] [2020-11-22T08:55:59.865Z] [iam] checking project seinanbaseball-4f367 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2020-11-22T08:55:59.867Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-22T08:55:59.867Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-22T08:56:00.054Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2020-11-22T08:56:00.056Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-22T08:56:00.056Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-22T08:56:00.183Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2020-11-22T08:56:00.186Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at Object.<anonymous> (/Users/yu-home/.nodebrew/node/v14.4.0/lib/node_modules/firebase-tools/lib/auth.js:23:32)
+    at Module._compile (internal/modules/cjs/loader.js:1200:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1220:10)
+    at Module.load (internal/modules/cjs/loader.js:1049:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:937:14)
+    at Module.require (internal/modules/cjs/loader.js:1089:19)
+    at require (internal/modules/cjs/helpers.js:73:18)
+    at Object.<anonymous> (/Users/yu-home/.nodebrew/node/v14.4.0/lib/node_modules/firebase-tools/lib/commands/login.js:20:14)
+    at Module._compile (internal/modules/cjs/loader.js:1200:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1220:10)
+    at Module.load (internal/modules/cjs/loader.js:1049:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:937:14)
+    at Module.require (internal/modules/cjs/loader.js:1089:19)
+    at require (internal/modules/cjs/helpers.js:73:18)
+    at loadCommand (/Users/yu-home/.nodebrew/node/v14.4.0/lib/node_modules/firebase-tools/lib/commands/index.js:5:19)
+    at module.exports (/Users/yu-home/.nodebrew/node/v14.4.0/lib/node_modules/firebase-tools/lib/commands/index.js:89:20)
+[error] 
+[error] Error: Failed to get Firebase project seinanbaseball-4f367. Please make sure the project exists and your account has permission to access it.

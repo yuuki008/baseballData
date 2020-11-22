@@ -1,3 +1,6 @@
+
+/* 全体 */
+
 .result{
     width: 70%;
     margin: 0 auto;
@@ -5,6 +8,8 @@
     display: flex;
     flex-direction: column;
 }
+
+/* 選手選択 */
 
 .result__players{
     padding: 20px;
@@ -63,18 +68,23 @@
     padding-left: 10px;
 }
 
+/* ページ下部分全体 */
+
 .result__bat{
     display: flex;
-    width: 80%;
+    width:100%;
     position: relative;
 }
 
+/* 打席結果 */
+
 .result__resulted{
-    width: 30%;
+    width: 20%;
 }
 
 .result__bat_foul{
     display: flex;
+    justify-content: space-around;
 }
 
 .result__resulted__data__title{
@@ -101,19 +111,40 @@
     float: right;
 }
 
-.result__batting{
-    width: 70%;
-}
-
-.result__batting__info{
+.result__bat__stolen{
     display: flex;
+    justify-content: space-around;
 }
 
-.result__batting__info > span{
-    padding-left: 10px;
+/* 打席セット */
+
+.result__batting{
+    width: 50%;
 }
 
 .result__dataset{
-    width: 300px;
+    width: 400px;
     margin: 0 auto;
+}
+
+/* 試合のデータセット */
+
+.players__resulted{
+    position: relative;
+    width: 30%;
+}
+
+.players__resulted__data{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.player__resulted{
+    display: flex;
+    padding: 10px;
+}
+
+.player__hit__total{
+    margin-left: auto;
 }

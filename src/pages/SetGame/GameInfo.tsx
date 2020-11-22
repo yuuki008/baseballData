@@ -72,6 +72,22 @@ const GameInfo = () => {
         }
         const gameRef = db.collection('games').doc()
         const gameId = gameRef.id
+        selects.map((item:any) => {
+            db.collection('player').doc(item.id).collection('games').doc(gameId).set({
+                total: 0,
+                hit: 0,
+                strikeOut: 0,
+                rbi: 0,
+                stolen: 0,
+                stolenOut: 0,
+                four: 0,
+                homerun: 0,
+                two: 0,
+                three: 0,
+                inside: 0,
+                sacrifice: 0,
+            })
+        })
         db.collection('games').doc(gameId).set(gameData)
         .then(() => {
             dispatch(push('/game/player/' + gameId))

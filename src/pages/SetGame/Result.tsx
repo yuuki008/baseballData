@@ -5,6 +5,8 @@ import { Avatar, Button, makeStyles } from '@material-ui/core'
 import {LightTooltip, SelectBox, TextInput} from '../../components'
 import shortId from 'shortid'
 import {PlayersModal} from '../../components'
+import ResultedPlayers from '../../components/PageComponent/ResultedPlayers'
+
 const useStyles = makeStyles({
     avatar:{
         width: "100px",
@@ -15,7 +17,7 @@ const useStyles = makeStyles({
         width: "100px",
         height: "100px",
         margin: '20px',
-        fontSize: "20px",
+        fontSize: "50px",
         display: 'teble-cell',
         verticalAlign: 'middle',
         '&:hover':{
@@ -23,9 +25,9 @@ const useStyles = makeStyles({
         }
     },
     next:{
-        margin: '0 auto',
-        fontSize: "16px",
-        fontWeight: 600,
+        background: 'lightseagreen',
+        borderRadius: '10px',
+        color: 'white',
     }
 })
 
@@ -47,15 +49,46 @@ const Result = () => {
     const [resulted, setResulted] = useState<any>([])
     const [foul, setFoul] = useState(0)
     const [bat, setBat] = useState(0)
+    const [rbi, setRbi] = useState(0)
+    const [stolen, setStolen] = useState(0)
+    const [stolenOut, setStolenOut] = useState(0)
     const [open, setOpen] = useState(false)
+    const [gameData, setGameData] = useState<any>({})
+
+    const inputStolen = useCallback((event) => {
+        if(event.target.value < 0){
+            return false
+        }
+        setStolen(event.target.value)
+    },[setStolen])
+
+    const inputStolenOut = useCallback((event) => {
+        if(event.target.value < 0){
+            return false
+        }
+        setStolenOut(event.target.value)
+    },[setStolenOut])
 
     const inputFoul = useCallback((event) => {
+        if(event.target.value < 0){
+            return false
+        }
         setFoul(event.target.value)
     },[setFoul])
 
     const inputBat = useCallback((event) => {
+        if(event.target.value < 0){
+            return false
+        }
         setBat(event.target.value)
     },[setBat])
+
+    const inputRbi = useCallback((event) => {
+        if(event.target.value < 0){
+            return false
+        }
+        setRbi(event.target.value)
+    },[setRbi])
 
     const handleOpen = useCallback(() => {
         setOpen(true)
@@ -77,10 +110,34 @@ const Result = () => {
             })
             setResulted(list)
         })
+        // if(player){
+        //     db.collection('player').doc(player.id).collection('games').doc(gameId).get()
+        //     .then((snapshot) => {
+        //         const data = snapshot.data()
+        //         setGameData(data)
+        //     })
+        // }
     }
 
-    const resultedUpdate = (item:any) => {
-        
+    const stolenSet = () => {
+        db.collection('player').doc(player.id).collection('game').doc(gameId).set({stolen: stolen},{merge: true})
+        .then(() => {
+            setStolen(0)
+        })
+    }
+
+    const stolenOutset = () => {
+        db.collection('player').doc(player.id).collection('game').doc(gameId).set({stolenOut: stolenOut},{merge: true})
+        .then(() => {
+            setStolen(0)
+        })
+    }
+
+    const rbiSet = () => {
+        db.collection('player').doc(player.id).collection('game').doc(gameId).set({rbi: rbi},{merge: true})
+        .then(() => {
+            setRbi(0)
+        })
     }
 
     const resultSet = () => {
@@ -161,6 +218,7 @@ const Result = () => {
             setBats(list)
         }
     },[resulted])
+
     return (
         <div className="result">
             <div className="result__players">
@@ -185,10 +243,10 @@ const Result = () => {
                         <div className={player.id == item.id  ? ("active__player"):("none")}/>
                     </div>
                     )}
-                    <LightTooltip title="選手追加">
+                    <LightTooltip title="新しく選手を追加">
                         <Avatar className={classes.Addplayer}
                          onClick={handleOpen}
-                         >+</Avatar>
+                         >＋</Avatar>
                     </LightTooltip>
                 </div> 
             </div> 
@@ -196,9 +254,10 @@ const Result = () => {
             {Object.keys(player).length > 0 && (
                 <>
                 <div className="module-spacer--medium" />
+
                 <div className="result__resulted">
                     <div className="result__resulted__data">
-                    <div className="title">
+                    <div className="title center">
                     打席結果
                     </div>
                     <div className="result__resulted__datalist">
@@ -211,9 +270,45 @@ const Result = () => {
                             </div>
                             </div>
                         )}
+                    <div className="module-spacer--small" />
+
+                    <div className="result__bat__stolen">
+                        <TextInput
+                            fullWidth={false} label={"盗塁数"} multiline={false} required={true} 
+                            rows={1} value={stolen} type={'number'} onChange={inputStolen}
+                        />
+                        <Button
+                        className={classes.next}
+                        >セット</Button>
                     </div>
+
+                    <div className="module-spacer--small"/>
+
+                    <div className="result__bat__stolen">
+                        <TextInput
+                            fullWidth={false} label={"盗塁死"} multiline={false} required={true} 
+                            rows={1} value={stolenOut} type={'number'} onChange={inputStolenOut}
+                        />
+                        <Button
+                        className={classes.next}
+                        >セット</Button>
+                    </div>
+                    
+                    <div className="module-spacer--small"/>
+
+                    <div className="result__bat__stolen">
+                        <TextInput
+                            fullWidth={false} label={"打点"} multiline={false} required={true} 
+                            rows={1} value={rbi} type={'number'} onChange={inputRbi}
+                        />  
+                        <Button
+                        className={classes.next}
+                        >セット</Button>
                     </div>
                 </div>
+                </div>
+                </div>
+
                 <div className="result__batting"> 
                     <div className="result__batting__info">
                         <div className="title center">{player.name}</div>
@@ -226,9 +321,9 @@ const Result = () => {
                                 rows={1} value={bat} type={'number'} onChange={inputBat}
                             />
                             <TextInput
-                                fullWidth={false} label={"ファール数"} multiline={false} required={true} 
+                                fullWidth={false} label={"ファール"} multiline={false} required={true} 
                                 rows={1} value={foul} type={'number'} onChange={inputFoul}
-                            />
+                            />          
                         </div>
                         <div className="module-spacer--small" />
                         <SelectBox label="投手（右・左）" options={pitchs} required={true} select={setPitch} value={pitch} />
@@ -238,15 +333,29 @@ const Result = () => {
                         <SelectBox label="打席結果を入力してください" options={details} required={true} select={setDetail} value={detail} />
                         </div>
                         <div className="module-spacer--medium"/>
+                        <div className="module-spacer--medium"/>
                         <div className="center">
-                        <Button 
-                        className={classes.next}
-                        onClick={() => resultSet()}
-                        >完了</Button>
+                            <Button 
+                            className={classes.next}
+                            onClick={() => resultSet()}
+                            >
+                                打席をセット
+                            </Button>
                         </div>
                 </div>
                 </>
             )}
+
+            <div className="players__resulted">
+                <div className="title center">
+                    試合データ
+                </div>
+                <div className="players__resulted__data">
+                    {players.map((player:any) => 
+                        <ResultedPlayers player={player} gameId={gameId} resulted={resulted}/>
+                    )}
+                </div>
+            </div>
             <PlayersModal handleClose={handleClose} open={open} items={players} team={game.team} />
             </div>
 
